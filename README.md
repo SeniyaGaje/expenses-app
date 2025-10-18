@@ -1,7 +1,9 @@
-Personal Expense Tracker
+💰 Personal Expense Tracker
+
 A full-stack expense tracking application built with React, TypeScript, and Node.js that helps you manage your daily expenses with full CRUD operations.
 
 🚀 Features
+
 Add New Expenses with title, amount, category, date, and description
 
 View All Expenses in a clean, organized list
@@ -15,6 +17,7 @@ Expense Summary with total spending, monthly breakdown, and category-wise analys
 Responsive Design that works on both desktop and mobile devices
 
 🛠️ Tech Stack
+
 Frontend:
 
 React 18 with TypeScript
@@ -24,6 +27,7 @@ Context API for state management
 CSS Modules for styling
 
 Fetch API for HTTP requests
+
 
 
 🚀Backend:
