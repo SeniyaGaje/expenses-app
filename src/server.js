@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const { v4: uuidv4 } = require('uuid');
+const { randomUUID } = require('crypto');
 
 const app = express();
 const PORT = process.env.PORT || 4001;
@@ -250,7 +250,7 @@ app.post('/expenses', (req, res) => {
     
     // Create new expense
     const newExpense = {
-      id: uuidv4(),
+      id: randomUUID(),
       title: expenseData.title.trim(),
       amount: parseFloat(expenseData.amount),
       category: expenseData.category.trim(),
@@ -364,8 +364,8 @@ app.use((err, req, res, next) => {
   });
 });
 
-// Handle 404
-app.use('*', (req, res) => {
+// Handle 404 (Express 5 compatible)
+app.use((req, res) => {
   res.status(404).json({
     success: false,
     message: 'Route not found'

@@ -1,26 +1,52 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useEffect } from 'react';
 import './App.css';
+import { ExpenseProvider, useExpenseContext } from './context/ExpenseContext';
+import { useExpenses } from './hooks/useExpenses';
+import ExpenseForm from './components/ExpenseForm';
+import ExpenseList from './components/ExpenseList';
+import ExpenseSummary from './components/ExpenseSummary';
+import SearchAndFilter from './components/SearchAndFilter';
 
-function App() {
+const AppContent: React.FC = () => {
+  const { fetchExpenses } = useExpenses();
+  const { state } = useExpenseContext();
+
+  useEffect(() => {
+    fetchExpenses();
+  }, [fetchExpenses]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <div className="app">
+      <header className="app-header">
+        <h1>Personal Expense Tracker</h1>
       </header>
+      
+      <div className="app-content">
+        <div className="sidebar">
+          <ExpenseForm />
+          <ExpenseSummary />
+        </div>
+        
+        <div className="main-content">
+          <SearchAndFilter onFilterChange={fetchExpenses} />
+          {state.error && (
+            <div className="error-message">
+              {state.error}
+            </div>
+          )}
+          <ExpenseList />
+        </div>
+      </div>
     </div>
   );
-}
+};
+
+const App: React.FC = () => {
+  return (
+    <ExpenseProvider>
+      <AppContent />
+    </ExpenseProvider>
+  );
+};
 
 export default App;
